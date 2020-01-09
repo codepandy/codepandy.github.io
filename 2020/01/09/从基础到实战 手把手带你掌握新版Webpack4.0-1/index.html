@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="[&quot;zh-Hans&quot;,&quot;zh-CN&quot;,&quot;default&quot;]"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="从基础到实战 手把手带你掌握新版Webpack4.0-1"><meta name="keywords" content="webpack"><meta name="author" content="wenmu"><meta name="copyright" content="wenmu"><title>从基础到实战 手把手带你掌握新版Webpack4.0-1 | 温木的博客</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack-是什么？"><span class="toc-number">1.</span> <span class="toc-text">webpack 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#url-loader-和-file-loader"><span class="toc-number">2.</span> <span class="toc-text">url-loader 和 file-loader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#css-loader-的配置"><span class="toc-number">3.</span> <span class="toc-text">css-loader 的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打包字体文件"><span class="toc-number">4.</span> <span class="toc-text">打包字体文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码映射"><span class="toc-number">5.</span> <span class="toc-text">代码映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dev-server"><span class="toc-number">6.</span> <span class="toc-text">dev-server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Babel-解决-ES6-语法"><span class="toc-number">7.</span> <span class="toc-text">Babel 解决 ES6 语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发第三方库时-polyfill-的配置"><span class="toc-number">8.</span> <span class="toc-text">开发第三方库时 polyfill 的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tree-Shaking"><span class="toc-number">9.</span> <span class="toc-text">Tree Shaking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack-和-code-spliting"><span class="toc-number">10.</span> <span class="toc-text">webpack 和 code spliting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-webpack-自带的代码分割"><span class="toc-number">11.</span> <span class="toc-text">使用 webpack 自带的代码分割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SplitChunksPlugin-详细讲解"><span class="toc-number">12.</span> <span class="toc-text">SplitChunksPlugin 详细讲解</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://thumbnail0.baidupcs.com/thumbnail/ea5429806p23c6a153c0b44981506b2f?fid=1259130490-250528-341140853690276&amp;time=1578463200&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Kd6VOtTMgp5dMaCmS1ZAkLZzOD8%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=176613175980206257&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video"></div><div class="author-info__name text-center">wenmu</div><div class="author-info__description text-center">记录一些在工作中或学习新知识时学到的一些知识点；正所谓好记性不如一个烂笔头，温故而知新！</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">53</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">36</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">18</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">温木的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">首页</a><a class="site-page" href="/archives">文章</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="post-info"><div id="post-title">从基础到实战 手把手带你掌握新版Webpack4.0-1</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-01-09</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/webpack/">webpack</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="webpack-是什么？"><a href="#webpack-是什么？" class="headerlink" title="webpack 是什么？"></a>webpack 是什么？</h3><p>webpack 是模块打包工具。它不能理解成 es6 的翻译器，因为它只认识 import 语法，其他的高级语法不认识。因为它是模块打包工具，所以各种模块的语法它都认识。</p>
+<a id="more"></a>
+
+<h3 id="url-loader-和-file-loader"><a href="#url-loader-和-file-loader" class="headerlink" title="url-loader 和 file-loader"></a>url-loader 和 file-loader</h3><p>url-loader 可以完全替代 file-loader;</p>
+<h3 id="css-loader-的配置"><a href="#css-loader-的配置" class="headerlink" title="css-loader 的配置"></a>css-loader 的配置</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> &#123;</span><br><span class="line">  text:/\.css|less$/,</span><br><span class="line">  use:[</span><br><span class="line">        'style-loader',</span><br><span class="line">        &#123;</span><br><span class="line">            loader:'css-loader',</span><br><span class="line">            options:&#123;</span><br><span class="line">                <span class="comment">// 指定通过import引入的样式也走后面的2个loader</span></span><br><span class="line">                importLoaders:2,</span><br><span class="line">                <span class="comment">// css模块化打包</span></span><br><span class="line">                modules:true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        'less-loader',</span><br><span class="line">        'postcss-loader'</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>importLoaders 的含义<br>样式在解析时，通常是从下到上或从右到左的依次执行<code>loader</code>,但是在写样式时，有时会出现<code>@import ../list/index.less</code>的语法，这时在打包的时候<code>import</code>的样式可能就不会走<code>css-loader</code>后面的 loader，直接走<code>css-loader</code>，所以通过设置<code>importLoadders</code>，让通过<code>import</code>引入的样式,在引入之前也都走<code>css-loader</code>后的 2 个<code>loader</code></li>
+<li>css 模块化<br>在引入 css 时通常有如下两种方式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 全局的方式</span><br><span class="line">import &#39;.&#x2F;index.less&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 模块的方式</span><br><span class="line">import styles from &#39;.&#x2F;index.less&#39;</span><br></pre></td></tr></table></figure>
+
+<p>两种方式的区别</p>
+<ul>
+<li>全局的方式引入，只要有元素使用的样式在<code>index.less</code>中有定义，样式就会起作用。如果多个<code>css</code>文件中有相同名字的样式，则会出现样式污染的情况。</li>
+<li>模块式引入，要想使用模块式样式，需要在<code>css-loader</code>中配置<code>modules:true</code>,这样在使用时，<ul>
+<li>只有引入的模块，</li>
+<li>并且指定了样式的地方才会起作用。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import styles from &#39;.&#x2F;index.less&#39;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 有效（非react语法）</span><br><span class="line">&lt;div class&#x3D;&#123;styles.name&#125;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&#x2F;&#x2F; 无效，虽然上面已经引入了样式，即使是单页面应用，由于下面的使用方式不是模块调用，所以即使样式名在index.less中有也没用</span><br><span class="line">&lt;div class&#x3D;&quot;name&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="打包字体文件"><a href="#打包字体文件" class="headerlink" title="打包字体文件"></a>打包字体文件</h3><p>使用 file-loader 即可。</p>
+<h3 id="代码映射"><a href="#代码映射" class="headerlink" title="代码映射"></a>代码映射</h3><table>
+<thead>
+<tr>
+<th>devtool</th>
+<th align="center">构建速度</th>
+<th align="center">重新构建速度</th>
+<th>生产环境</th>
+<th>品质(quality)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(none)</td>
+<td align="center">+++</td>
+<td align="center">+++</td>
+<td>yes</td>
+<td>打包后的代码</td>
+</tr>
+<tr>
+<td>eval</td>
+<td align="center">+++</td>
+<td align="center">+++</td>
+<td>no</td>
+<td>生成后的代码</td>
+</tr>
+<tr>
+<td><strong>cheap-eval-source-map</strong></td>
+<td align="center">+</td>
+<td align="center">++</td>
+<td>no</td>
+<td>转换过的代码（仅显示行）；<code>eval</code>是最快的，另外这个不包含第三方模块，所以感觉开发中使用这个最合适。</td>
+</tr>
+<tr>
+<td><strong>cheap-module-eval-source-map</strong></td>
+<td align="center">o</td>
+<td align="center">++</td>
+<td>no</td>
+<td>原始源代码（仅显示行）；<code>但是视频推荐使用这个</code>。</td>
+</tr>
+<tr>
+<td>eval-source-map</td>
+<td align="center">–</td>
+<td align="center">+</td>
+<td>no</td>
+<td>原始源代码</td>
+</tr>
+<tr>
+<td><strong>cheap-source-map</strong></td>
+<td align="center">+</td>
+<td align="center">o</td>
+<td>no</td>
+<td>转换过的代码（仅显行）</td>
+</tr>
+<tr>
+<td>cheap-module-source-map</td>
+<td align="center">o</td>
+<td align="center">-</td>
+<td>no</td>
+<td>原始源代码（仅显行）</td>
+</tr>
+<tr>
+<td>inline-cheap-source-map</td>
+<td align="center">+</td>
+<td align="center">o</td>
+<td>no</td>
+<td>转换过的代码（仅显示行）</td>
+</tr>
+<tr>
+<td>inline-cheap-module-source-map</td>
+<td align="center">o</td>
+<td align="center">-</td>
+<td>no</td>
+<td>原始源代码（仅显示行）</td>
+</tr>
+<tr>
+<td>source-map</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td>yes</td>
+<td>原始源代码</td>
+</tr>
+<tr>
+<td>inline-source-map</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td>no</td>
+<td>原始源代码</td>
+</tr>
+<tr>
+<td>hidden-source-map</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td>yes</td>
+<td>原始源代码</td>
+</tr>
+<tr>
+<td>nosources-source-map</td>
+<td align="center">–</td>
+<td align="center">–</td>
+<td>yes</td>
+<td>无源代码内容</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>+++ 非常快速, ++ 快速, + 比较快, o 中等, - 比较慢, – 慢</p>
+</blockquote>
+<ul>
+<li><code>cheap</code>的含义：只针对业务代码进行映射，不包括安装的第三方包。另外 cheap 是只映射到行，不会映射到列，即行中的第几个字符。</li>
+<li><code>module</code>的含义：就是包含安装的第三方模块。比如<code>cheap-module-source-map</code></li>
+<li><code>eval</code>的含义，<code>eval</code>就是把源代码打包成字符串，放到<code>eval</code>中。<code>eval</code>的打包速度是最快的。<blockquote>
+<p>视频中推荐开发模式使用<code>cheap-module-eval-source-map</code>，生产环境使用<code>cheap-module-source-map</code></p>
+</blockquote>
+</li>
+</ul>
+<p>自我理解</p>
+<blockquote>
+<p>带<code>eval</code>和<code>inline</code>关键字的，会把源代码和打包后的文件打包在一起，不包含的会对源代码进行单独打包，生成一个单独的文件。</p>
+</blockquote>
+<h3 id="dev-server"><a href="#dev-server" class="headerlink" title="dev-server"></a>dev-server</h3><p><code>dev-server</code>就是先通过<code>webpack</code>打包，然后启动一个<code>node服务</code>，把打包后的静态资源启动起来，但是<code>dev-server</code>是把静态资源放到内存中了，并没有放到磁盘上。<br>所以可以在<code>dev-server</code>的<code>before</code>钩子中写自己的<code>mock</code>。</p>
+<blockquote>
+<p>就是启动了一个 node 服务</p>
+</blockquote>
+<p>###手写一个简单的 dev-server</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">"webpack"</span>);</span><br><span class="line"><span class="keyword">const</span> webpackDevMiddleware = <span class="built_in">require</span>(<span class="string">"webpack-dev-middleware"</span>);</span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">"./webpack.config.js"</span>);</span><br><span class="line"><span class="comment">// 使用webpack进行打包</span></span><br><span class="line"><span class="keyword">const</span> complier = webpack(config);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = expres();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用express中间件，每当文件发生变化，webpackDevMiddleware使用complier进行打包。</span></span><br><span class="line">app.use(</span><br><span class="line">  webpackDevMiddleware(complier, &#123;</span><br><span class="line">    publickPath: config.output.publicPath,</span><br><span class="line">  &#125;),</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"server is runing."</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>自己写需要配置的东西比较多，推荐使用<code>dev-server</code>.</p>
+<p>###热更新 HMR<br>不配置 HMR，当有改动时，也会自动更新，但是这时是重新加载，如果页面上有数据或者状态值发生改变，是不会保留的。<br>而 HMR 是只更新变化的部分，并且保留页面的状态和数据。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">devServer:&#123;</span><br><span class="line">  contentBase:'./dist/,</span><br><span class="line">  open:true,</span><br><span class="line">  port:3000,</span><br><span class="line">  hot:true,</span><br><span class="line">  hotOnly:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>hot 是开启 hmr 模式</li>
+<li>hotOnly 表示，启用热模块替换，在构建失败时不刷新页面作为回退。配置了这个有时候需要手动刷新，还是不要配置了。</li>
+</ul>
+<blockquote>
+<p>记得配置<code>new webpack.HotModuleReplacementPlugin()</code></p>
+</blockquote>
+<p>上面讲解了热更新及它的配置，但是这还没完，配置后，如果想让它起作用，需要在代码中编写相关的代码才行，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">counter();</span><br><span class="line">number();</span><br><span class="line"><span class="comment">// 如果开启了HMR</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">module</span>.hot) &#123;</span><br><span class="line">  <span class="built_in">module</span>.hot.accept(<span class="string">"./number"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 删除老的元素</span></span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">"number"</span>));</span><br><span class="line">    <span class="comment">// 重新执行变更的元素</span></span><br><span class="line">    number();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很多人奇怪，不对啊，在开发过程中没写过这样的代码啊，只要上面的配置完，<code>HMR</code>就已经起作用了啊，这是为什么呢？</p>
+<blockquote>
+<p>这是因为在开发过程中，我们使用的<code>loader</code>都已经实现了 HMR 的接口，也就是做了上面类似的操作。所以我们不需要手动再写。比如<code>style-loader</code>、<code>vue-loader</code>、react 的<code>bable-preset</code>等，都已经实现了 HMR 接口。可参考官网“概念”模块里面的讲解。</p>
+</blockquote>
+<h3 id="Babel-解决-ES6-语法"><a href="#Babel-解决-ES6-语法" class="headerlink" title="Babel 解决 ES6 语法"></a>Babel 解决 ES6 语法</h3><p>由于现在很多浏览器还不支持 ES6 语法，所以需要使用 babel 把 es6 语法转换成所有浏览器都支持的 ES5 语法。<br><code>babel-loader</code>并不会直接把<code>ES6</code>语法转换成<code>ES5</code>，它只是搭建<code>babel</code>和<code>webpack</code>的桥梁，它需要使用<code>babel/preset-env</code>插件对 ES6 进行转换。<br><code>babel/preset-env</code>只能转换 ES6 语法，比如箭头函数、let 等，它不能转换 ES6 中的函数，比如 Promise、Array.map()等，如果需要支持这些 ES6 的函数，需要使用<code>babel/polyfill</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"@babel/polyfill"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在使用时，我们需要引入；<br>由于 polyfill 文件很大，所以在打包时如果把没有用到的方法也打包进来，那打包后的文件会很大，如果只打包用到的方法，这样就比较符合我们的用意。通过设置<code>useBuiltIns:&#39;usage&#39;</code>可以达到我们的目的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">module:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">                test:/\.jsx?$/,</span><br><span class="line">                exclude:/node_modules/,</span><br><span class="line">                loader:'babel-loader',</span><br><span class="line">                options:&#123;</span><br><span class="line">                    presets:[</span><br><span class="line">                          ['@babel/preset-env',&#123;</span><br><span class="line">                              <span class="comment">// 指定需要适应的浏览器版本，如果浏览器版本已经支持了ES6，那么代码就不会被转换了</span></span><br><span class="line">                              targets:&#123;chrome:'67'&#125;</span><br><span class="line">                              <span class="comment">// 指定polyfill只打包用到的函数，比如只用了promise，那只会打包polyfill中的promise。当配置了这个，就不需要手动import ‘@babel/polyfill’了</span></span><br><span class="line">                              useBuiltIns:'usage'</span><br><span class="line">                          &#125;]</span><br><span class="line">                    ],</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="开发第三方库时-polyfill-的配置"><a href="#开发第三方库时-polyfill-的配置" class="headerlink" title="开发第三方库时 polyfill 的配置"></a>开发第三方库时 polyfill 的配置</h3><p>由于上面的引入是全局的，所以如果开发第三方包时也那样做，就会污染全局变量，应该使用下面的方式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">module:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">                test:/\.jsx?$/,</span><br><span class="line">                exclude:/node_modules/,</span><br><span class="line">                loader:'babel-loader',</span><br><span class="line">                options:&#123;</span><br><span class="line">                    "plugins":[["@babel/plugin-transform-runtime",&#123;</span><br><span class="line">                              "corejs":2,</span><br><span class="line">                              "helpers":true,</span><br><span class="line">                              "regenerator":true,</span><br><span class="line">                              "useESModules":false,</span><br><span class="line">                    &#125;]]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外 impor 的地方需要删除掉。同时需要安装<code>npm install --save @babel/runtime-corejs2</code></p>
+<blockquote>
+<p>不想在 options 中配置，可以创建 babel 的配置文件<code>.babelrc</code>来专门配置 babel</p>
+</blockquote>
+<h3 id="Tree-Shaking"><a href="#Tree-Shaking" class="headerlink" title="Tree Shaking"></a>Tree Shaking</h3><p><a href="https://www.webpackjs.com/guides/tree-shaking/" target="_blank" rel="noopener">官网解释</a>其实已经很明确了。<br>就是移除没用到的代码，打包的时候只把用到的代码进行打包。它依赖于 ES2015 模块系统中的<a href="http://exploringjs.com/es6/ch_modules.html#static-module-structure" target="_blank" rel="noopener">静态结构特性</a>，例如  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank" rel="noopener"><code>import</code></a>  和  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export" target="_blank" rel="noopener"><code>export</code></a>。也就是说 Tree Shaking 只支持<code>ES6</code>的<code>module</code>，对于<code>commonjs</code>的模块是不支持的，因为它是动态结构。</p>
+<blockquote>
+<p>Tree Shaking 形象的描述了这一行为，摇动树，把没用的树叶摇掉，只留下有用的。</p>
+</blockquote>
+<p>在开发环境下，这个功能默认是没开启的，所以在<code>development</code>环境下，需要设置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins:[],</span><br><span class="line">optimization:&#123;</span><br><span class="line">    usedExports:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样在开发模式下，就只会对使用到的代码进行打包，但是这样有个问题，比如<code>@babel/polyfill</code>这类文件，需要引入，但是不需要专门导出其中的某个方法，这时打包时就会认为这个包没用到，打包时就会删除它，这样就会有问题。<br>我们可以通过设置<code>package.json</code>中的<code>sideEffects</code>来指定哪些包不需要<code>tree shaking</code>的包。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这样就不会对@babel/polyfill进行tree shaking了</span></span><br><span class="line">"sideEffects":["@babel/polyfill"]</span><br></pre></td></tr></table></figure>
+
+<p>但是由于<code>@babel/polyfill</code>不需要手动引入，所以我们需要对所有的文件进行<code>tree shaking</code>,这时把<code>siideEffects</code>设置成<code>false</code>即可。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对所有的文件进行tree shaking</span></span><br><span class="line">"sideEffects":false</span><br></pre></td></tr></table></figure>
+
+<p>但是如果 css 没有使用 module 的模式，则会认为 css 文件没有导出任何东西，也会被移除，所以需要对 css 进行配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不对所有的css进行tree shaking</span></span><br><span class="line">"sideEffects":["*.css"]</span><br></pre></td></tr></table></figure>
+
+<p>上面配置完，开发模式下的 tree shaking 就配置完了，但是通过查看打包后的文件发现，没用到的代码还是被打包了 😂，是不是没起作用，其实起作用了，在注释里面标记了文件有哪些方法，真正用到的是哪些方法，只是标记了一下，为什么不移除掉呢，因为如果移除掉，在调试的时候，代码的行数可能就对不上了，<strong>所以开发模式下配置这个就是脱裤放屁，妈了个巴子</strong></p>
+<p>所以 tree shaking 真正有意义的是在生产环境，但是生产环境不需要手动做 tree shaking 配置，webpack 自动都配置好了，所以这功能了解就行，不需要做什么。sideEffects 需要设置下。</p>
+<h3 id="webpack-和-code-spliting"><a href="#webpack-和-code-spliting" class="headerlink" title="webpack 和 code spliting"></a>webpack 和 code spliting</h3><p>code spliting 就是把代码打包成多个包，这样在浏览器加载的时候就可以并行加载，提高性能和效率。<br>实现的方式有很多种，下面列举一些常用的。</p>
+<ol>
+<li>把全局使用的包单独打包<br>比如<code>lodash</code>,这个包封装了一些封装了一些常用的方法，完全可以挂在在 window 全局上，而不需要在每个使用的地方 import。<br>新建一个<code>js</code>文件<code>lodash.js</code></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">"lodash"</span>;</span><br><span class="line"><span class="built_in">window</span>._ = _;</span><br></pre></td></tr></table></figure>
+
+<p>然后打包的时候，就可以把这个文件单独打包，这样就不会在每个使用的地方都打包一次（也可以通过 webpack 提取模板的方式解决）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">entry:&#123;</span><br><span class="line">    main:'./index.js',</span><br><span class="line">    lodash:'./lodash.js'</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样打包的时候，<code>lodash</code>就被单独打包了。</p>
+<h3 id="使用-webpack-自带的代码分割"><a href="#使用-webpack-自带的代码分割" class="headerlink" title="使用 webpack 自带的代码分割"></a>使用 webpack 自带的代码分割</h3><p>我们不需要专门的对 lodash 这种第三方模块进行处理，通过配置 webpack，它自动做代码分割。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 业务代码中</span></span><br><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span></span><br><span class="line"><span class="comment">// ... 业务代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// webpack 配置</span></span><br><span class="line">plugins:[],</span><br><span class="line">optimization:&#123;</span><br><span class="line">      splitChunks:&#123;</span><br><span class="line">            chuks:<span class="string">'all'</span></span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的配置是对同步代码的；<br>如果是异步加载，那么上面的配置就不需要了，webpack 会把异步加载的包自动单独进行打包。<br>默认打出的 chunk 包名是用包的 id 来命名的，也就是 0，1，2 等等，可以手动指定 chunk 的包名。<br>异步加载组件支持一种语法叫做“魔法注释”，可以通过这种方式设置生成 chunk 的名字。<br>比如下面是一段异步加载的代码（注意两端的空格）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getComponent</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">import</span>(<span class="string">'/* webpackChunkName:"lodash" */ lodash'</span>).then(&#123;<span class="attr">default</span>:_&#125;=&gt;&#123;</span><br><span class="line">             <span class="keyword">var</span> element=<span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">             element.innnerHTML=_.join([<span class="string">'Hello'</span>,<span class="string">'Every'</span>,<span class="string">'One'</span>],<span class="string">'-'</span>);</span><br><span class="line">             <span class="keyword">return</span> element;</span><br><span class="line">      &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getComponent().then(<span class="function"><span class="params">element</span>=&gt;</span>&#123;</span><br><span class="line">      <span class="built_in">document</span>.body.appendChild(element);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上面打包后<code>lodash</code>的包就会被命名成<code>vendors~lodash.js</code>； 是不是奇怪为什么会多一个<code>vendors~</code>，如果不想让带着前缀，可以通过配置插件<code>SplitChunksPlugin</code>来实现。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: <span class="string">"all"</span>,</span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        vendors: <span class="literal">false</span>, <span class="comment">// 这个设置成false</span></span><br><span class="line">        <span class="keyword">default</span>: <span class="literal">false</span>, <span class="comment">// 这个设置成false</span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这样再打包，包名就成<code>lodash.js</code>了。</p>
+<p>其实代码分割就是通过配置<code>SplitChunksPlugin</code>插件来实现的。虽然上面是通过注释的方式，其实也是走的<code>SplitChunksPlugin</code>插件。</p>
+<h3 id="SplitChunksPlugin-详细讲解"><a href="#SplitChunksPlugin-详细讲解" class="headerlink" title="SplitChunksPlugin 详细讲解"></a>SplitChunksPlugin 详细讲解</h3><p><code>SplitChunksPlugin</code>有一个默认配置，<a href="https://webpack.js.org/plugins/split-chunks-plugin/" target="_blank" rel="noopener">参见官网</a><br>，手动设置成空对象或不配置，走的都是这个默认配置。</p>
+<ul>
+<li>chunks</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>chunks 参数值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>all</td>
+<td>把动态和非动态模块同时进行优化打包；所有模块都扔到 vendors.bundle.js 里面。依赖<code>cacheGroup</code>中的配置，如果<code>cacheGroup</code>中的配置设置成 false，则不会分割打包。</td>
+</tr>
+<tr>
+<td>initial</td>
+<td>把非动态模块打包进 vendor，动态模块优化打包</td>
+</tr>
+<tr>
+<td>async</td>
+<td>把动态模块打包进 vendor，非动态模块保持原样（不优化）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>minSize<br>需要进行代码分割的最小尺寸。只有大于这个值的包才会进行代码分割。单位是字节，（1024 字节=1kb）</li>
+<li>maxSize<br>配置打包后 chunk 的包的大小，比如配置 50000，50kb，那么<code>lodash</code>包的大小超过了这个，打包的时候<code>lodash</code>会被拆分多个 50kb 的包。一般不配置这个选项。</li>
+<li>minChunks<br>设置模块被引用多少次才进行代码拆分。<blockquote>
+<p>这里说的引用是指被打包后生成的 chunk 所引用的次数，不是开发代码中引用的次数（是这样吗？）</p>
+</blockquote>
+</li>
+<li>maxAsyncRequests<br>设置页面同时加载的模块数量。比如设置 5，当打包前 5 个库的时候，会分别打包成 5 个包文件，超过 5 个的模块就不再进行代码分割。</li>
+<li>maxInitialRequests<br>设置整个网站首页或入口文件在进行加载时，可能也会引入其他代码库，这个就是设置入口文件引入的库最多拆分几个包。比如设置成 3，即使入口文件引入了 5 个文件，那也会只拆分成三个包。</li>
+<li>automaticNameDelimiter<br>设置生成文件时名称之间的连接符。</li>
+<li>name<br>设置<code>cacheGroup</code>中的名字是否有效,这个参数一般不动。</li>
+<li>cacheGroups<br>配置拆分的规则。为什么叫“缓存组”，比如有两个第三方包，lodash 和 jquery，当遇到 lodash 时，看下是否满足拆规则，如果满足则先缓存下来，然后再分析 jquery，等把包都分析完了，把都满足规则的包一起打包到对应组指定的文件中。<ul>
+<li>reuseExistingChunk<br>指定打过包的文件不会再被打包。比如有 a,b 两个包，在 c 文件中引入了 a,b,但是 a 中也引入了 b，这样在打包的时候，由于在对 a 打包的时候已经打过 b 的包，所以在对 c 打包的时候，不会再对 b 进行打包。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: <span class="string">"async"</span>,</span><br><span class="line">      minSize: <span class="number">30000</span>,</span><br><span class="line">      maxSize: <span class="number">0</span>,</span><br><span class="line">      minChunks: <span class="number">1</span>,</span><br><span class="line">      maxAsyncRequests: <span class="number">5</span>,</span><br><span class="line">      maxInitialRequests: <span class="number">3</span>,</span><br><span class="line">      automaticNameDelimiter: <span class="string">"~"</span>,</span><br><span class="line">      automaticNameMaxLength: <span class="number">30</span>,</span><br><span class="line">      name: <span class="literal">true</span>,</span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        vendors: &#123;</span><br><span class="line">          test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">          priority: <span class="number">-10</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="keyword">default</span>: &#123;</span><br><span class="line">          minChunks: <span class="number">2</span>,</span><br><span class="line">          priority: <span class="number">-20</span>,</span><br><span class="line">          reuseExistingChunk: <span class="literal">true</span>, <span class="comment">//指定打过包的模块不会被重复打包。</span></span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">wenmu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2020/01/09/%E4%BB%8E%E5%9F%BA%E7%A1%80%E5%88%B0%E5%AE%9E%E6%88%98%20%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E6%8E%8C%E6%8F%A1%E6%96%B0%E7%89%88Webpack4.0-1/">http://yoursite.com/2020/01/09/%E4%BB%8E%E5%9F%BA%E7%A1%80%E5%88%B0%E5%AE%9E%E6%88%98%20%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E6%8E%8C%E6%8F%A1%E6%96%B0%E7%89%88Webpack4.0-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">温木的博客</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/webpack/">webpack</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/01/09/react%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93%E7%AC%94%E8%AE%B0/"><i class="fa fa-chevron-left">  </i><span>react服务端渲染笔记</span></a></div><div class="next-post pull-right"><a href="/2020/01/09/webpack%E7%9A%84code%20splitting%E5%92%8C%E6%87%92%E5%8A%A0%E8%BD%BD/"><span>webpack的code splitting和懒加载</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By wenmu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

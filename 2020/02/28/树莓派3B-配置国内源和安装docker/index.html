@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="[&quot;zh-Hans&quot;,&quot;zh-CN&quot;,&quot;default&quot;]"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="树莓派3B+配置国内源和安装docker"><meta name="keywords" content="电脑技能"><meta name="author" content="wenmu"><meta name="copyright" content="wenmu"><title>树莓派3B+配置国内源和安装docker | 温木的博客</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="http://ta.qq.com"><script>(function() {
+   var hm = document.createElement("script");
+   hm.src = "https://tajs.qq.com/stats?sId=&lt;script type=&quot;text/javascript&quot; src=&quot;http://tajs.qq.com/stats?sId=66523541&quot; charset=&quot;UTF-8&quot;&gt;&lt;/script&gt;";
+   var s = document.getElementsByTagName("script")[0];
+   s.parentNode.insertBefore(hm, s);
+ })();</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新-验证"><span class="toc-number">2.</span> <span class="toc-text">更新+验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-docker"><span class="toc-number">3.</span> <span class="toc-text">配置 docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-命令不加-sudo"><span class="toc-number">4.</span> <span class="toc-text">docker 命令不加 sudo</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.loli.net/2020/02/27/xwaBoOj158MfNyq.jpg"></div><div class="author-info__name text-center">wenmu</div><div class="author-info__description text-center">记录一些在工作中或学习新知识时学到的一些知识点；正所谓好记性不如一个烂笔头，温故而知新！</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">93</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">47</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">25</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">温木的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">首页</a><a class="site-page" href="/archives">文章</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="post-info"><div id="post-title">树莓派3B+配置国内源和安装docker</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-28</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%94%B5%E8%84%91%E6%8A%80%E8%83%BD/">电脑技能</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>我的是 3b+版本，系统版本是<code>stretch</code>,如下命令可以查看版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lsb_release -a</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID:	Raspbian</span><br><span class="line">Description:	Raspbian GNU/Linux 9.4 (stretch)</span><br><span class="line">Release:	9.4</span><br><span class="line">Codename:	stretch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我的系统体系结构是<code>armhf</code>,这是这下面安装 docker 的时候提示的，安装 amd64 报错了。 ###设置树莓派国内源 1.使用管理员权限修改<code>/etc/apt/sources.list</code>文件：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<p>用#注释掉原文件内容，添加以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi</span><br></pre></td></tr></table></figure>
+
+<p>2.使用管理员权限，编辑<code>/etc/apt/sources.list.d/raspi.list</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/apt/sources.list.d/raspi.list</span><br></pre></td></tr></table></figure>
+
+<p>用#注释掉原文件内容，添加以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirror.tuna.tsinghua.edu.cn/raspberrypi/ stretch main ui</span><br><span class="line">deb-src http://mirror.tuna.tsinghua.edu.cn/raspberrypi/ stretch main ui</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新-验证"><a href="#更新-验证" class="headerlink" title="更新+验证"></a>更新+验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>如果上面的命令执行没有再提示什么没找到什么什么的信息，并更新完成就说明上面配置管用，并配置成功了</p>
+<h3 id="配置-docker"><a href="#配置-docker" class="headerlink" title="配置 docker"></a>配置 docker</h3><p>根据官网先做如下配置,运行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install \</span><br><span class="line">     apt-transport-https \</span><br><span class="line">     ca-certificates \</span><br><span class="line">     curl \</span><br><span class="line">     gnupg2 \</span><br><span class="line">     software-properties-common</span><br></pre></td></tr></table></figure>
+
+<p>下一步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<p>下一步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key fingerprint 0EBFCD88</span><br></pre></td></tr></table></figure>
+
+<p>接下来按照官网的配置 docker 的仓库，不起作用，就在网上找了手动下载的方法</p>
+<p>设置 docker 源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb [arch=armhf] https://download.docker.com/linux/debian \</span></span><br><span class="line"><span class="string">     <span class="variable">$(lsb_release -cs)</span> stable"</span> | \</span><br><span class="line">    sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure>
+
+<p>更新 安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-命令不加-sudo"><a href="#docker-命令不加-sudo" class="headerlink" title="docker 命令不加 sudo"></a>docker 命令不加 sudo</h3><ol>
+<li>如果还没有 docker group 就添加一个：</li>
+</ol>
+<p><code>sudo groupadd docker</code></p>
+<ol start="2">
+<li>将用户加入该 group 内。然后退出并重新登录就生效啦。</li>
+</ol>
+<p><code>sudo gpasswd -a ${USER} docker</code></p>
+<ol start="3">
+<li>重启 docker</li>
+</ol>
+<p><code>sudo service docker restart</code></p>
+<p><a href="https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce-1" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce-1</a><br><a href="https://blog.csdn.net/la9998372/article/details/77886806" target="_blank" rel="noopener">https://blog.csdn.net/la9998372/article/details/77886806</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">wenmu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.wangpengpeng.site/2020/02/28/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E9%85%8D%E7%BD%AE%E5%9B%BD%E5%86%85%E6%BA%90%E5%92%8C%E5%AE%89%E8%A3%85docker/">http://blog.wangpengpeng.site/2020/02/28/%E6%A0%91%E8%8E%93%E6%B4%BE3B-%E9%85%8D%E7%BD%AE%E5%9B%BD%E5%86%85%E6%BA%90%E5%92%8C%E5%AE%89%E8%A3%85docker/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.wangpengpeng.site">温木的博客</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%B5%E8%84%91%E6%8A%80%E8%83%BD/">电脑技能</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://i.loli.net/2020/02/27/hOBzIxFDJMCrmtN.jpg"><div class="post-qr-code__desc">微信打赏</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/02/28/react-%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E6%A0%87/"><i class="fa fa-chevron-left">  </i><span>react+百度地图实现自定义图标</span></a></div><div class="next-post pull-right"><a href="/2020/02/28/JavaScript%E5%AE%9E%E7%8E%B0%E9%93%BE%E8%A1%A8/"><span>JavaScript实现链表</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2019 - 2020 By wenmu</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv">该文访问量<span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script></body></html>

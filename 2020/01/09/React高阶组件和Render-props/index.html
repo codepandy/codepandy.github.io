@@ -12,35 +12,34 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script><meta name="generator" content="Hexo 4.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#高阶组件"><span class="toc-number">1.</span> <span class="toc-text">高阶组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区别"><span class="toc-number">2.</span> <span class="toc-text">区别</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.loli.net/2020/02/27/xwaBoOj158MfNyq.jpg"></div><div class="author-info__name text-center">wenmu</div><div class="author-info__description text-center">记录一些在工作中或学习新知识时学到的一些知识点；正所谓好记性不如一个烂笔头，温故而知新！</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">105</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">51</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">29</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">温木的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">首页</a><a class="site-page" href="/archives">文章</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="post-info"><div id="post-title">React高阶组件和Render props</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-01-09</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/react/">react</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h3><blockquote>
+} </script><meta name="generator" content="Hexo 4.2.0"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#高阶组件"><span class="toc-number">1.</span> <span class="toc-text">高阶组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本质"><span class="toc-number">2.</span> <span class="toc-text">本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用场景"><span class="toc-number">3.</span> <span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Render-props"><span class="toc-number">4.</span> <span class="toc-text">Render props</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用场景-1"><span class="toc-number">5.</span> <span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两者的关系"><span class="toc-number">6.</span> <span class="toc-text">两者的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相同点"><span class="toc-number">7.</span> <span class="toc-text">相同点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区别"><span class="toc-number">8.</span> <span class="toc-text">区别</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.loli.net/2020/02/27/xwaBoOj158MfNyq.jpg"></div><div class="author-info__name text-center">wenmu</div><div class="author-info__description text-center">记录一些在工作中或学习新知识时学到的一些知识点；正所谓好记性不如一个烂笔头，温故而知新！</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">111</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">52</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">30</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">温木的博客</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">首页</a><a class="site-page" href="/archives">文章</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="post-info"><div id="post-title">React高阶组件和Render props</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-01-09</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/react/">react</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h3><blockquote>
 <p>具体而言，高阶组件就是一个函数，且该函数接受一个组件作为参数，并返回一个新的组件</p>
 </blockquote>
 <p>高阶组件就是一个函数，里面封装了业务处理逻辑；<br>只要多个组件的<strong>业务逻辑一样</strong>，就可以用一个高阶组件，把逻辑封装起来，进行复用，把组件当做参数传递进来显示就行。</p>
-<p><strong>本质</strong></p>
-<blockquote>
+<h3 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h3><blockquote>
 <ul>
 <li>是个函数</li>
 <li>组件作为参数，可以有其他参数，比如数据源</li>
 <li>返回一个新组件</li>
 </ul>
 </blockquote>
-<p>###使用场景<br>当多个组件的处理逻辑一样的时候，可以用高阶组件进行封装。但要注意的是，他们的显示方式，数据源可能是不一样的。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>当多个组件的处理逻辑一样的时候，可以用高阶组件进行封装。但要注意的是，他们的显示方式，数据源可能是不一样的。</p>
 <blockquote>
 <ul>
 <li>业务逻辑一样</li>
 <li>显示方式和数据源可能不一样</li>
 </ul>
 </blockquote>
-<p>###Render props<br>术语  <a href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce" target="_blank" rel="noopener">“render prop”</a>  是指一种在 React 组件之间使用一个值为函数的 prop 在 React 组件间共享代码的简单技术。</p>
+<h3 id="Render-props"><a href="#Render-props" class="headerlink" title="Render props"></a>Render props</h3><p>术语  <a href="https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce" target="_blank" rel="noopener">“render prop”</a>  是指一种在 React 组件之间使用一个值为函数的 prop 在 React 组件间共享代码的简单技术。</p>
 <blockquote>
 <p>说白了就是：给组件接受一个<strong>函数</strong><code>props</code>，而这个函数返回的是一个组件。组件使用 props 函数返回的组件进行显示。<br>这样可以在组件外定义显示的内容，组件内的状态数据可以得到重用。</p>
 </blockquote>
-<p>###使用场景<br>共享状态或一个组件的行为封装到其他需要相同状态的组件中。</p>
+<h3 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h3><p>共享状态或一个组件的行为封装到其他需要相同状态的组件中。</p>
 <blockquote>
 <p>说白了就是实现对 state 的重用。</p>
 </blockquote>
-<p>###两者的关系<br>通过上面的描述，render props 好像做了和高阶组件同样的事情，但又感觉稍有不同，不细心对比，很难说清楚，下面做一个对比。</p>
-<p>###相同点<br>他们都封装了相同逻辑，实现了重用。但程度不同。</p>
+<h3 id="两者的关系"><a href="#两者的关系" class="headerlink" title="两者的关系"></a>两者的关系</h3><p>通过上面的描述，render props 好像做了和高阶组件同样的事情，但又感觉稍有不同，不细心对比，很难说清楚，下面做一个对比。</p>
+<h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><p>他们都封装了相同逻辑，实现了重用。但程度不同。</p>
 <h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><table>
 <thead>
 <tr>
